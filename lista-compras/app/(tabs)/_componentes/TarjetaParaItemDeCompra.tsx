@@ -1,5 +1,5 @@
 import { Pressable, Text, StyleSheet } from 'react-native';
-import { Item } from '../../hooks/useListaDeCompras';
+import { Item } from '../_tipos/item';
 
 type Props = { 
   item: Item;

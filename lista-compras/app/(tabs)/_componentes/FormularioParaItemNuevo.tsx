@@ -1,33 +1,40 @@
+import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
-export const FormularioParaAgregarUnNuevoComponente = ({
-  texto,
-  alIntroducirTexto,
-  alAgregarItem,
-}: {
-  texto: string;
-  alIntroducirTexto: (text: string) => void;
-  alAgregarItem: () => void;
-}) => {
+interface Props {
+  alCompletarFormulario: (nombre: string) => void;
+}
+
+export function FormularioParaItemNuevo({ alCompletarFormulario }: Props) {
+  const [nombre, setNombre] = useState('');
+
+  const manejarEnvio = () => {
+    const textoLimpio = nombre.trim();
+    if (textoLimpio !== '') {
+      alCompletarFormulario(textoLimpio);
+      setNombre('');
+    }
+  };
+
   return (
     <View style={styles.inputRow}>
       <TextInput
-        value={texto}
-        onChangeText={alIntroducirTexto}
+        value={nombre}
+        onChangeText={setNombre}
         placeholder="Agregar producto (ej: Leche)"
         style={styles.input}
         returnKeyType="done"
-        onSubmitEditing={alAgregarItem}
+        onSubmitEditing={manejarEnvio}
       />
-      <Pressable style={styles.addBtn} onPress={alAgregarItem}>
+      <Pressable style={styles.addBtn} onPress={manejarEnvio}>
         <Text style={styles.addTxt}>Agregar</Text>
       </Pressable>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  inputRow: { flexDirection: 'row', gap: 8 },
+  inputRow: { flexDirection: 'row', gap: 8, marginTop: 5 },
   input: {
     flex: 1,
     borderWidth: 1,

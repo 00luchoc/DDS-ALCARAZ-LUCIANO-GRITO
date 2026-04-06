@@ -1,31 +1,23 @@
-import { useListaDeCompras } from '../../hooks/useListaDeCompras';
-import { Contenedor } from '../../components/contenedores/Contenedor';
-import { TituloDeLaPagina } from '../../components/contenidos/TituloDeLaPagina';
-import { FormularioParaAgregarUnNuevoComponente } from '../../components/contenidos/FormularioParaAgregarUnNuevoComponente';
-import { ListaDeCompras } from '../../components/contenedores/ListaDeCompras';
+import { Contenedor } from "./_componentes/Contenedor";
+import { TituloDeLaPagina } from "./_componentes/TituloDeLaPagina";
+import { FormularioParaItemNuevo } from "./_componentes/FormularioParaItemNuevo";
+import { ListaDeCompras } from "./_componentes/ListaDeCompras";
+import { useItemDeCompra } from "./_hooks/useItemDeCompra";
 
 export default function App() {
-  const {
-    items,
-    textoNuevo,
-    establecerTextoNuevo,
-    agregarItem,
-    alternarItem,
-    sacarItem,
-  } = useListaDeCompras();
-
+  const { items, eliminarItem, cambiarItem, agregarItem } = useItemDeCompra();
   return (
     <Contenedor>
       <TituloDeLaPagina />
-      <FormularioParaAgregarUnNuevoComponente
-        texto={textoNuevo}
-        alAgregarItem={agregarItem}
-        alIntroducirTexto={establecerTextoNuevo}
-      />
+
       <ListaDeCompras
         items={items}
-        alAlternar={alternarItem}
-        alSacar={sacarItem}
+        alPresionarSobreUnItem={cambiarItem}
+        alMantenerPresionSobreUnItem={eliminarItem}
+      />
+
+      <FormularioParaItemNuevo 
+        alCompletarFormulario={agregarItem} 
       />
     </Contenedor>
   );

@@ -1,15 +1,15 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { Item } from '../../hooks/useListaDeCompras';
-import { TarjetaParaItemDeCompra } from '../contenidos/TarjetaParaItemDeCompra';
+import { Item } from '../_tipos/item';
+import { TarjetaParaItemDeCompra } from './TarjetaParaItemDeCompra';
 
 export const ListaDeCompras = ({
   items,
-  alAlternar,
-  alSacar,
+  alPresionarSobreUnItem,
+  alMantenerPresionSobreUnItem,
 }: {
   items: Item[];
-  alAlternar: (id: string) => void;
-  alSacar: (id: string) => void;
+  alPresionarSobreUnItem: (id: string) => void;
+  alMantenerPresionSobreUnItem: (id: string) => void;
 }) => {
   return (
     <FlatList
@@ -18,8 +18,8 @@ export const ListaDeCompras = ({
       renderItem={({ item }) => (
         <TarjetaParaItemDeCompra
           item={item}
-          alPresionar={() => alAlternar(item.id)}
-          alMantenerPresionado={() => alSacar(item.id)}
+          alPresionar={() => alPresionarSobreUnItem(item.id)}
+          alMantenerPresionado={() => alMantenerPresionSobreUnItem(item.id)}
         />
       )}
       ListEmptyComponent={
